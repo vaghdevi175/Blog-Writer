@@ -46,23 +46,24 @@ UNSPLASH_API_KEY=your-unsplash-key-here
 streamlit run app.py
 
 ## Deploy on Streamlit Cloud
-# 1.Push your code to a GitHub repository.
+1.Push your code to a GitHub repository.
 
-# 2.Go to Streamlit Cloud.
+2.Go to Streamlit Cloud.
 
-# 3.Click “New App” and select your GitHub repo.
+3.Click “New App” and select your GitHub repo.
 
-# 4.In Advanced Settings, set the following environment variables:
+4.In Advanced Settings, set the following environment variables:
 
   OPENROUTER_API_KEY
   
   UNSPLASH_API_KEY
   
-# 5.Click Deploy!
+5.Click Deploy!
 
 ## How to use this:
--Enter a topic like "Artificial Intelligence" and select a tone such as "Professional".
--Click Generate Blog to create content.
--Optionally, generate related images and ask the AI questions about the blog.
--Copy the blog or download it in .txt or .md format.
+
+- Enter a topic like "Artificial Intelligence" and select a tone such as "Professional".
+- Click Generate Blog to create content.
+- Optionally, generate related images and ask the AI questions about the blog.
+- Copy the blog or download it in .txt or .md format.
 
