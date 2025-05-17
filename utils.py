@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key="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",
+    api_key="YOUR_OPENAI_API_KEY",
 )
 
 def generate_blog_with_llama(prompt, model="meta-llama/llama-4-maverick:free"):
