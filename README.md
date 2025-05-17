@@ -54,9 +54,9 @@ streamlit run app.py
 
 4.In Advanced Settings, set the following environment variables:
 
-  OPENROUTER_API_KEY
+    OPENROUTER_API_KEY
   
-  UNSPLASH_API_KEY
+    UNSPLASH_API_KEY
   
 5.Click Deploy!
 
