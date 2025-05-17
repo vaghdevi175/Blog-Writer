@@ -1,3 +1,4 @@
+import requests
 import streamlit as st
 from blog_generator import generate_blog_with_llama
 from image_fetcher import fetch_multiple_unsplash_images
@@ -20,7 +21,7 @@ for key, default in {
         st.session_state[key] = default
 
 def show_main_page():
-    st.title("📝 Blog Writer")
+    st.title(" Blog Writer")
     st.markdown("Enter a topic and tone to generate a blog post with related images.")
 
     with st.form("blog_form"):
@@ -44,7 +45,7 @@ def show_main_page():
                     st.session_state.page = "detail"
                     st.rerun()
 
-    st.markdown("### 📚 Recent Blogs")
+    st.markdown("###  Recent Blogs")
     if not st.session_state.history:
         st.info("No blogs yet.")
         return
@@ -56,13 +57,16 @@ def show_main_page():
             st.session_state.page = "detail"
             st.rerun()
 
+
 def show_blog_detail():
     idx = st.session_state.current_blog_idx
-    if idx is None:
+    if idx is None or idx >= len(st.session_state.history):
         st.error("No blog selected.")
         return
 
     blog = st.session_state.history[idx]
+
+    # Back button
     st.button("⬅️ Back", on_click=lambda: st.session_state.update({"page": "main"}))
 
     st.markdown(f"### 📰 {blog['topic']} ({blog['tone']})")
@@ -77,25 +81,46 @@ def show_blog_detail():
         with st.spinner("Fetching images..."):
             imgs = fetch_multiple_unsplash_images(blog["topic"])
             st.session_state.history[idx]["images"] = imgs
-            st.rerun()
+            st.experimental_rerun()
 
-    if blog["images"]:
-        st.markdown("### 🖼️ Related Images")
-        for img_url in blog["images"]:
-            st.image(img_url, use_column_width=True)
+    if blog.get("images"):
+        st.markdown("### Related Images")
+        for i in range(0, len(blog["images"]), 3):
+            cols = st.columns(3)
+            for j in range(3):
+                img_idx = i + j
+                if img_idx < len(blog["images"]):
+                    with cols[j]:
+                        url = blog["images"][img_idx]
+                        st.image(url, width=250, use_container_width=False)
+                        try:
+                            img_data = requests.get(url).content
+                            st.download_button(
+                                label=f"⬇️ Download Image {img_idx + 1}",
+                                data=img_data,
+                                file_name=f"image_{img_idx + 1}.jpg",
+                                mime="image/jpeg",
+                                key=f"download_img_{img_idx}"
+                            )
+                        except Exception as e:
+                            st.error(f"Failed to load image for download: {e}")
 
-    # Chat Q&A
+    # Chat Q&A for blog
+    if "chat_history" not in st.session_state:
+        st.session_state.chat_history = []
+
     user_question = st.chat_input("Ask about this blog...")
     if user_question:
         response = handle_user_question(blog["topic"], blog["content"], user_question)
-        with st.chat_message("user"):
-            st.markdown(user_question)
-        with st.chat_message("assistant"):
-            st.markdown(response)
         st.session_state.chat_history.extend([
             {"role": "user", "content": user_question},
             {"role": "assistant", "content": response}
         ])
+
+    # Display all messages from history
+    for msg in st.session_state.chat_history:
+        with st.chat_message(msg["role"]):
+            st.markdown(msg["content"])
 
 # Entry Point
 def main():
