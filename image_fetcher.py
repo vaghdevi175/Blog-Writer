@@ -4,7 +4,7 @@ import random
 import logging
 
 logger = logging.getLogger(__name__)
-UNSPLASH_API_KEY = "KYAn88o8imSvQr-6aPEO5QJ7_S2qh6RGlMeX_mTgklY"
+UNSPLASH_API_KEY = "YOUR_UNPLASH_API_KEY"
 
 def fetch_multiple_unsplash_images(query):
     count = random.randint(2, 5)
