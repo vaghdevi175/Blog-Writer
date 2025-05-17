@@ -54,9 +54,9 @@ streamlit run app.py
 
 4.In Advanced Settings, set the following environment variables:
 
-    OPENROUTER_API_KEY
+ - OPENROUTER_API_KEY
   
-    UNSPLASH_API_KEY
+ - UNSPLASH_API_KEY
   
 5.Click Deploy!
 
@@ -67,3 +67,9 @@ streamlit run app.py
 - Optionally, generate related images and ask the AI questions about the blog.
 - Copy the blog or download it in .txt or .md format.
 
+## Embedding the App
+
+You can embed this Streamlit Blog Generator app into any website using an iframe. Just add the following HTML snippet to your site:
+
+```html
+<iframe src="https://your-app-url.streamlit.app" width="100%" height="600px"></iframe>
