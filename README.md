@@ -25,21 +25,6 @@ This is a Streamlit-based blog generator app powered by **OpenRouter's LLaMA mod
 
 ---
 
-##  Folder Structure
-
-streamlit-blog-generator/
-├── app.py # Main Streamlit app
-├── blog_generator.py # Handles blog generation using LLaMA
-├── image_fetcher.py # Fetches images from Unsplash
-├── chat_handler.py # Handles Q&A for blog content
-├── utils.py # Clipboard and download utilities
-├── requirements.txt # Python dependencies
-├── .env.example # Sample .env file for API keys
-└── README.md
-
-
----
-
 ##  Setup Instructions (Run Locally)
 
 ### 1. Clone the repository
@@ -52,24 +37,32 @@ pip install -r requirements.txt
 
 ### 3.Add API keys
 Create a .env file in the root folder and add your keys:
+
 OPENROUTER_API_KEY=your-openrouter-key-here
+
 UNSPLASH_API_KEY=your-unsplash-key-here
 
 ### 4. Run the app
 streamlit run app.py
 
 ## Deploy on Streamlit Cloud
-1.Push your code to a GitHub repository.
-2.Go to Streamlit Cloud.
-3.Click “New App” and select your GitHub repo.
-4.In Advanced Settings, set the following environment variables:
+# 1.Push your code to a GitHub repository.
+
+# 2.Go to Streamlit Cloud.
+
+# 3.Click “New App” and select your GitHub repo.
+
+# 4.In Advanced Settings, set the following environment variables:
+
   OPENROUTER_API_KEY
+  
   UNSPLASH_API_KEY
-5.Click Deploy!
+  
+# 5.Click Deploy!
 
 ## How to use this:
-1.Enter a topic like "Artificial Intelligence" and select a tone such as "Professional".
-2.Click Generate Blog to create content.
-3.Optionally, generate related images and ask the AI questions about the blog.
-4.Copy the blog or download it in .txt or .md format.
+-Enter a topic like "Artificial Intelligence" and select a tone such as "Professional".
+-Click Generate Blog to create content.
+-Optionally, generate related images and ask the AI questions about the blog.
+-Copy the blog or download it in .txt or .md format.
 
