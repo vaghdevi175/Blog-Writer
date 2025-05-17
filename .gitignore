@@ -24,12 +24,14 @@ env/
 *.sqlite
 *.db
 
-# Python environment files
-*.env
+# Python environment files and secrets
+.env
+.env.*
 *.local
 secrets.env
 
 # Streamlit cache
 .streamlit/
 .cache/
+
 
