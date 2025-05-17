@@ -62,10 +62,10 @@ streamlit run app.py
 
 ## How to use this:
 
-- Enter a topic like "Artificial Intelligence" and select a tone such as "Professional".
-- Click Generate Blog to create content.
-- Optionally, generate related images and ask the AI questions about the blog.
-- Copy the blog or download it in .txt or .md format.
+ - Enter a topic like Artificial Intelligence in the input box.
+ - Select a preferred tone from the dropdown menu (e.g., Professional, Friendly, Persuasive, Witty).
+ - Click Generate Blog to create your blog post.
+ - Optionally, generate related images, ask questions about the blog, copy content, or download the post.
 
 ## Embedding the App
 
