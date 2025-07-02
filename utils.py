@@ -12,11 +12,12 @@ client = OpenAI(
 )
 def generate_blog_with_llama(prompt, model="mistralai/mistral-small-3.1-24b-instruct-2503"):
     try:
-        response = client.chat.completions.create(
-            model=model,
-            messages=[{"role": "user", "content": prompt}],
+        response = openai.chat.completions.create(
+        model=model,
+        messages=[{"role": "user", "content": prompt}],
         )
         content = response.choices[0].message.content.strip()
+
         return content
     except Exception as e:
         logger.error(f"OpenRouter error: {e}")
