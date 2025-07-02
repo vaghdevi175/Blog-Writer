@@ -1,27 +1,26 @@
-import openai 
+import openai
 import streamlit.components.v1 as components
 import base64
 import logging
 import os
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
-
-client = OpenAI(
-    api_key=os.getenv("OPENROUTER_API_KEY"),  # or directly use "YOUR_API_KEY"
-    base_url="https://openrouter.ai/api/v1"   # Required for OpenRouter
-)
+import streamlit as st
+openai.api_key = st.secrets["OPENROUTER_API_KEY"]
+openai.api_base = "https://openrouter.ai/api/v1"  
 def generate_blog_with_llama(prompt, model="mistralai/mistral-small-3.1-24b-instruct-2503"):
     try:
-        response = openai.chat.completions.create(
-        model=model,
-        messages=[{"role": "user", "content": prompt}],
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
         )
-        content = response.choices[0].message.content.strip()
-
+        content = response['choices'][0]['message']['content'].strip()
         return content
     except Exception as e:
-        logger.error(f"OpenRouter error: {e}")
-        return "⚠️ API call failed."
+        logger.error(f"OpenRouter API Error: {e}")
+        return "⚠️ API call failed. Check API key or model name."
 
 def copy_to_clipboard_button(text, button_label="Copy Blog Content"):
     safe_text = text.replace('\\', '\\\\').replace('`', '\\`').replace('\n', '\\n')
@@ -36,6 +35,7 @@ def copy_to_clipboard_button(text, button_label="Copy Blog Content"):
         }};
         </script>
     """, height=50)
+
 
 def get_download_link(text, filename):
     b64 = base64.b64encode(text.encode()).decode()
