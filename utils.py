@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.ERROR)
 
 # Function to generate blog content
-def generate_blog_with_llama(prompt, model="deepseek/deepseek-r1-0528"):
+def generate_blog_with_llama(prompt, model="meta-llama/llama-4-maverick:free"):
     try:
         client = openai.OpenAI(api_key=openai.api_key, base_url=openai.base_url)
         response = client.chat.completions.create(
