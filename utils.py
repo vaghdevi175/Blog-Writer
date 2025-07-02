@@ -2,12 +2,13 @@ from openai import OpenAI
 import streamlit.components.v1 as components
 import base64
 import logging
-logging.basicConfig(level=logging.ERROR) 
+
+logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key="YOUR OPEN API KEY",
+    api_key="YOUR_OPENROUTER_API_KEY",  # 🔑 Use your API key
 )
 
 def generate_blog_with_llama(prompt, model="mistralai/mistral-small-3.1-24b-instruct-2503"):
@@ -16,22 +17,16 @@ def generate_blog_with_llama(prompt, model="mistralai/mistral-small-3.1-24b-inst
             model=model,
             messages=[{"role": "user", "content": prompt}],
         )
-        if response and response.choices:
-            message = response.choices[0].message
-            content = message.content.strip() if hasattr(message, 'content') else message["content"].strip()
-            return content
-        else:
-            logger.error("No choices returned from API.")
-            return "⚠️ No response from the API."
+        content = response.choices[0].message.content.strip()
+        return content
     except Exception as e:
         logger.error(f"OpenRouter error: {e}")
         return "⚠️ API call failed."
 
-
 def copy_to_clipboard_button(text, button_label="Copy Blog Content"):
     safe_text = text.replace('\\', '\\\\').replace('`', '\\`').replace('\n', '\\n')
     components.html(f"""
-        <button id="copy-btn" style="padding:8px 16px; font-size:16px;">{button_label}</button>
+        <button id="copy-btn" style="padding:8px 16px;">{button_label}</button>
         <script>
         document.getElementById('copy-btn').onclick = () => {{
             navigator.clipboard.writeText(`{safe_text}`);
