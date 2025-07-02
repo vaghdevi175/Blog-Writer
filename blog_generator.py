@@ -13,7 +13,7 @@ def show_main_page():
         tone = st.selectbox("Select tone", ["", "Professional", "Friendly", "Persuasive", "Witty"], index=0)
         submitted = st.form_submit_button("Generate Blog")
 
-        if submitted:
+         if submitted:
             if not topic.strip():
                 st.error("Please enter a blog topic.")
             elif not tone.strip():
@@ -41,7 +41,6 @@ def show_main_page():
                     st.session_state.current_blog_idx = len(st.session_state.history) - 1
                     st.session_state.page = "detail"
                     st.rerun()
-
 
     st.markdown("---")
     st.subheader("Recent Blogs")
