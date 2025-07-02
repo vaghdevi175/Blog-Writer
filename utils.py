@@ -5,23 +5,27 @@ import base64
 import logging
 import os
 
+# Setup OpenRouter credentials
+openai.api_key = st.secrets["OPENROUTER_API_KEY"]
+openai.base_url = "https://openrouter.ai/api/v1"  # Note: NOT `api_base` anymore
+
+# Logging setup
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.ERROR)
 
-openai.api_key = st.secrets["OPENROUTER_API_KEY"]
-openai.api_base = "https://openrouter.ai/api/v1"
-
+# Function to generate blog content
 def generate_blog_with_llama(prompt, model="deepseek/deepseek-r1-0528"):
     try:
-        response = openai.ChatCompletion.create(
+        client = openai.OpenAI(api_key=openai.api_key, base_url=openai.base_url)
+        response = client.chat.completions.create(
             model=model,
             messages=[{"role": "user", "content": prompt}]
         )
-        content = response['choices'][0]['message']['content'].strip()
-        return content
+        return response.choices[0].message.content.strip()
     except Exception as e:
         logger.error(f"OpenRouter API Error: {e}")
-        return "⚠️ API call failed. Check API key or model name."
+        return f"⚠️ API call failed. Error: {e}"
+
 
 def copy_to_clipboard_button(text, button_label="Copy Blog Content"):
     safe_text = text.replace('\\', '\\\\').replace('`', '\\`').replace('\n', '\\n')
