@@ -1,4 +1,4 @@
-from openai import OpenAI
+import openai 
 import streamlit.components.v1 as components
 import base64
 import logging
