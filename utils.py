@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 openai.api_key = st.secrets["OPENROUTER_API_KEY"]
 openai.api_base = "https://openrouter.ai/api/v1"
 
-def generate_blog_with_llama(prompt, model="mistralai/mistral-small-3.1-24b-instruct-2503"):
+def generate_blog_with_llama(prompt, model="mistralai/mistral-7b-instruct"):
     try:
         response = openai.ChatCompletion.create(
             model=model,
