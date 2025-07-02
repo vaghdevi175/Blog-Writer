@@ -22,7 +22,14 @@ def show_main_page():
                 st.session_state.topic = topic
                 st.session_state.tone = tone
                 with st.spinner("Generating blog..."):
-                    prompt = f"Write a {tone.lower()} blog post about: {topic}"
+                    prompt = f"""
+                    Write a detailed {tone.lower()} blog post about "{topic}".
+                    The blog should include:
+                    1. An engaging introduction.
+                    2. 2-3 subheadings covering important aspects of the topic.
+                    3. A conclusion.
+                    Make it conversational and interesting, around 500-700 words.
+                    """
                     blog = generate_blog_with_llama(prompt)
                     st.session_state.history.append({
                         "topic": topic,
@@ -34,6 +41,7 @@ def show_main_page():
                     st.session_state.current_blog_idx = len(st.session_state.history) - 1
                     st.session_state.page = "detail"
                     st.rerun()
+
 
     st.markdown("---")
     st.subheader("Recent Blogs")
