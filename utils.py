@@ -5,15 +5,13 @@ import base64
 import logging
 import os
 
-# Setup Logging
-logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.ERROR)
 
-# OpenAI / OpenRouter API setup
 openai.api_key = st.secrets["OPENROUTER_API_KEY"]
 openai.api_base = "https://openrouter.ai/api/v1"
 
-def generate_blog_with_llama(prompt, model="mistralai/mistral-7b-instruct"):
+def generate_blog_with_llama(prompt, model="deepseek/deepseek-r1-0528"):
     try:
         response = openai.ChatCompletion.create(
             model=model,
