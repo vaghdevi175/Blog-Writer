@@ -2,15 +2,14 @@ from openai import OpenAI
 import streamlit.components.v1 as components
 import base64
 import logging
-
+import os
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
 client = OpenAI(
-    base_url="https://openrouter.ai/api/v1",
-    api_key="YOUR_OPENROUTER_API_KEY",  # 🔑 Use your API key
+    api_key=os.getenv("OPENROUTER_API_KEY"),  # or directly use "YOUR_API_KEY"
+    base_url="https://openrouter.ai/api/v1"   # Required for OpenRouter
 )
-
 def generate_blog_with_llama(prompt, model="mistralai/mistral-small-3.1-24b-instruct-2503"):
     try:
         response = client.chat.completions.create(
