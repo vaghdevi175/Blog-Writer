@@ -1,24 +1,21 @@
 import streamlit as st
 from blog_generator import show_main_page, show_blog_detail
 
-# ---------- Session State Initialization ----------
+# Initialize session state
 default_state = {
     "page": "main",
     "history": [],
     "topic": "",
     "tone": "",
-    "blog": "",
-    "image_urls": [],
     "current_blog_idx": None,
     "chat_history": [],
-    "show_more_images": False,
 }
 
 for key, value in default_state.items():
     if key not in st.session_state:
         st.session_state[key] = value
 
-# ---------- Page Routing ----------
+# Routing
 def main():
     if st.session_state.page == "main":
         show_main_page()
