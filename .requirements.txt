@@ -1,5 +1,5 @@
-openai
 streamlit
+openai
 requests
 python-dotenv
 streamlit-chat
