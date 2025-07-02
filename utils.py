@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key="YOUR-UNPLASH-API-KEY",
+    api_key="YOUR-OPEN-API-KEY",
 )
 
 def generate_blog_with_llama(prompt, model="mistralai/mistral-small-3.1-24b-instruct-2503"):
