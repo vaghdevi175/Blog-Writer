@@ -1,36 +1,37 @@
-import openai
-import streamlit as st
+from openai import OpenAI
 import streamlit.components.v1 as components
 import base64
 import logging
-import os
-
-# Setup OpenRouter credentials
-openai.api_key = st.secrets["OPENROUTER_API_KEY"]
-openai.base_url = "https://openrouter.ai/api/v1"  # Note: NOT `api_base` anymore
-
-# Logging setup
+logging.basicConfig(level=logging.ERROR) 
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.ERROR)
 
-# Function to generate blog content
-def generate_blog_with_llama(prompt, model="meta-llama/llama-4-maverick:free"):
+client = OpenAI(
+    base_url="https://openrouter.ai/api/v1",
+    api_key="YOUR-UNPLASH-API-KEY",
+)
+
+def generate_blog_with_llama(prompt, model="mistralai/mistral-small-3.1-24b-instruct-2503"):
     try:
-        client = openai.OpenAI(api_key=openai.api_key, base_url=openai.base_url)
         response = client.chat.completions.create(
             model=model,
-            messages=[{"role": "user", "content": prompt}]
+            messages=[{"role": "user", "content": prompt}],
         )
-        return response.choices[0].message.content.strip()
+        if response and response.choices:
+            message = response.choices[0].message
+            content = message.content.strip() if hasattr(message, 'content') else message["content"].strip()
+            return content
+        else:
+            logger.error("No choices returned from API.")
+            return "⚠️ No response from the API."
     except Exception as e:
-        logger.error(f"OpenRouter API Error: {e}")
-        return f"⚠️ API call failed. Error: {e}"
+        logger.error(f"OpenRouter error: {e}")
+        return "⚠️ API call failed."
 
 
 def copy_to_clipboard_button(text, button_label="Copy Blog Content"):
     safe_text = text.replace('\\', '\\\\').replace('`', '\\`').replace('\n', '\\n')
     components.html(f"""
-        <button id="copy-btn" style="padding:8px 16px;">{button_label}</button>
+        <button id="copy-btn" style="padding:8px 16px; font-size:16px;">{button_label}</button>
         <script>
         document.getElementById('copy-btn').onclick = () => {{
             navigator.clipboard.writeText(`{safe_text}`);
