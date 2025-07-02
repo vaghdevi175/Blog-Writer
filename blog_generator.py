@@ -13,7 +13,7 @@ def show_main_page():
         tone = st.selectbox("Select tone", ["", "Professional", "Friendly", "Persuasive", "Witty"], index=0)
         submitted = st.form_submit_button("Generate Blog")
 
-         if submitted:
+        if submitted:
             if not topic.strip():
                 st.error("Please enter a blog topic.")
             elif not tone.strip():
