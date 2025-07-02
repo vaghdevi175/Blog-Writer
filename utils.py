@@ -1,20 +1,23 @@
 import openai
+import streamlit as st
 import streamlit.components.v1 as components
 import base64
 import logging
 import os
+
+# Setup Logging
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
-import streamlit as st
+
+# OpenAI / OpenRouter API setup
 openai.api_key = st.secrets["OPENROUTER_API_KEY"]
-openai.api_base = "https://openrouter.ai/api/v1"  
+openai.api_base = "https://openrouter.ai/api/v1"
+
 def generate_blog_with_llama(prompt, model="mistralai/mistral-small-3.1-24b-instruct-2503"):
     try:
         response = openai.ChatCompletion.create(
             model=model,
-            messages=[
-                {"role": "user", "content": prompt}
-            ]
+            messages=[{"role": "user", "content": prompt}]
         )
         content = response['choices'][0]['message']['content'].strip()
         return content
@@ -35,7 +38,6 @@ def copy_to_clipboard_button(text, button_label="Copy Blog Content"):
         }};
         </script>
     """, height=50)
-
 
 def get_download_link(text, filename):
     b64 = base64.b64encode(text.encode()).decode()
