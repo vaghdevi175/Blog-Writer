@@ -42,6 +42,7 @@ def show_main_page():
                     st.session_state.page = "detail"
                     st.rerun()
 
+
     st.markdown("---")
     st.subheader("Recent Blogs")
 
